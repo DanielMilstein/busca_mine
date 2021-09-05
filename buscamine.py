@@ -11,7 +11,7 @@ def tablero(n, k):
 	return tab
 
 def gen_minas(tabl, k):
-	minas = [(1,1)]
+	minas = []
 	n = len(tabl[0])
 
 	while len(minas) != k:
@@ -23,12 +23,12 @@ def gen_minas(tabl, k):
 			tabl[y][x] = 'M'
 	return minas
 
-def verif(x):
-	if x != 'M':
-		str(int(x)+1)
-		return
+def verif(e):
+	if e == 'M':
+		return e
 	else:
-		return
+		e = str(int(e)+1)
+		return e
 
 
 def algoritmo_minas(tab, minas):
@@ -37,83 +37,56 @@ def algoritmo_minas(tab, minas):
 		#Casos limite, ie: bordes y esquinas
 		#Esquinas (Primero para no repetir condiciones)
 		if x == 0 and y == 0:	
-			tab[y+1][x+1] = str(int(tab[y+1][x+1])+1) if tab[y+1][x+1] != 'M' else tab[y+1][x+1] = tab[y+1][x+1]
-			tab[y][x+1] = str(int(tab[y][x+1])+1) if tab[y][x+1] != 'M' else tab[y][x+1] = tab[y][x+1]
-			tab[y+1][x] = str(int(tab[y+1][x])+1) if tab[y+1][x] != 'M' else tab[y+1][x] = tab[y+1][x]
-
-	
+			tab[y+1][x+1] = verif(tab[y+1][x+1])
+			tab[y][x+1] = verif(tab[y][x+1])
+			tab[y+1][x] = verif(tab[y+1][x])
 		elif x == n-1 and y == n-1:
-			try:
-				tab[y-1][x-1] = str(int(tab[y-1][x-1])+1) if tab[y-1][x-1] != 'M' else tab[y-1][x-1] = tab[y-1][x-1]
-				tab[y][x-1] = str(int(tab[y][x-1])+1) if tab[y][x-1] != 'M' else tab[y][x-1] = tab[y][x-1]
-				tab[y-1][x] = str(int(tab[y-1][x])+1) if tab[y-1][x] != 'M' else tab[y-1][x] = tab[y-1][x]
-			except:
-				continue
-
+			tab[y-1][x-1] = verif(tab[y-1][x-1])
+			tab[y][x-1] = verif(tab[y][x-1])
+			tab[y-1][x] = verif(tab[y-1][x])
 		elif x == 0 and y == n-1:
-			try:
-				tab[y-1][x] = str(int(tab[y-1][x])+1) if __ != 'M' else __ = __
-				tab[y-1][x+1] = str(int(tab[y-1][x+1])+1) if __ != 'M' else __ = __
-				tab[y][x+1] = str(int(tab[y][x+1])+1) if __ != 'M' else __ = __
-			except:
-				continue
+			tab[y-1][x] = verif(tab[y-1][x])
+			tab[y-1][x+1] = verif(tab[y-1][x+1])
+			tab[y][x+1] = verif(tab[y][x+1])
 		elif x == n-1 and y == 0:
-			try:
-				tab[y][x-1] = str(int(tab[y][x-1])+1) if __ != 'M' else __ = __
-				tab[y+1][x-1] = str(int(tab[y+1][x-1])+1) if __ != 'M' else __ = __
-				tab[y+1][x] = str(int(tab[y+1][x])+1) if __ != 'M' else __ = __
-			except:
-				continue
+			tab[y][x-1] = verif(tab[y][x-1])
+			tab[y+1][x-1] = verif(tab[y+1][x-1])
+			tab[y+1][x] = verif(tab[y+1][x])
 		#Bordes
 		elif x == 0:
-			try:
-				tab[y-1][x] = str(int(tab[y-1][x])+1) if __ != 'M' else __ = __
-				tab[y][x+1] = str(int(tab[y][x+1])+1) if __ != 'M' else __ = __
-				tab[y+1][x] = str(int(tab[y+1][x])+1) if __ != 'M' else __ = __
-				tab[y-1][x+1] = str(int(tab[y-1][x+1])+1) if __ != 'M' else __ = __
-				tab[y+1][x+1] = str(int(tab[y+1][x+1])+1) if __ != 'M' else __ = __
-			except:
-				continue
+			tab[y-1][x] = verif(tab[y-1][x])
+			tab[y][x+1] = verif(tab[y][x+1])
+			tab[y+1][x] = verif(tab[y+1][x])
+			tab[y-1][x+1] = verif(tab[y-1][x+1])
+			tab[y+1][x+1] = verif(tab[y+1][x+1])
 		elif y == 0:
-			try:
-				tab[y][x-1] = str(int(tab[y][x-1])+1) if __ != 'M' else __ = __
-				tab[y+1][x] = str(int(tab[y+1][x])+1) if __ != 'M' else __ = __
-				tab[y][x+1] = str(int(tab[y][x+1])+1) if __ != 'M' else __ = __
-				tab[y+1][x-1] = str(int(tab[y+1][x-1])+1) if __ != 'M' else __ = __
-				tab[y+1][x+1] = str(int(tab[y+1][x+1])+1) if __ != 'M' else __ = __
-			except:
-				continue
+			tab[y][x-1] =verif(tab[y][x-1])
+			tab[y+1][x] = verif(tab[y+1][x])
+			tab[y][x+1] = verif(tab[y][x+1])
+			tab[y+1][x-1] = verif(tab[y+1][x-1])
+			tab[y+1][x+1] = verif(tab[y+1][x+1])
 		elif x == n-1:
-			try:
-				tab[y-1][x] = str(int(tab[y-1][x])+1) if __ != 'M' else __ = __
-				tab[y][x-1] = str(int(tab[y][x-1])+1) if __ != 'M' else __ = __
-				tab[y+1][x] = str(int(tab[y+1][x])+1) if __ != 'M' else __ = __
-				tab[y-1][x-1] = str(int(tab[y-1][x-1])+1) if __ != 'M' else __ = __
-				tab[y+1][x-1] = str(int(tab[y+1][x-1])+1) if __ != 'M' else __ = __
-			except:
-				continue
+			tab[y-1][x] = verif(tab[y-1][x])
+			tab[y][x-1] = verif(tab[y][x-1])
+			tab[y+1][x] = verif(tab[y+1][x])
+			tab[y-1][x-1] = verif(tab[y-1][x-1])
+			tab[y+1][x-1] = verif(tab[y+1][x-1])
 		elif y == n-1:
-			try:
-				tab[y][x-1] = str(int(tab[y][x-1])+1) if __ != 'M' else __ = __
-				tab[y+1][x] = str(int(tab[y+1][x])+1) if __ != 'M' else __ = __
-				tab[y][x+1] = str(int(tab[y][x+1])+1) if __ != 'M' else __ = __
-				tab[y-1][x-1] = str(int(tab[y-1][x-1])+1) if __ != 'M' else __ = __
-				tab[y-1][x+1] = str(int(tab[y-1][x+1])+1) if __ != 'M' else __ = __
-			except:
-				continue
+			tab[y][x-1] = verif(tab[y][x-1])
+			tab[y-1][x] = verif(tab[y-1][x])
+			tab[y][x+1] = verif(tab[y][x+1])
+			tab[y-1][x-1] = verif(tab[y-1][x-1])
+			tab[y-1][x+1] = verif(tab[y-1][x+1])
 		#Else...
 		else:
-			try:
-				tab[y-1][x-1] = str(int(tab[y-1][x-1])+1) if __ != 'M' else __ = __
-				tab[y-1][x] = str(int(tab[y-1][x])+1) if __ != 'M' else __ = __
-				tab[y-1][x+1] = str(int(tab[y-1][x+1])+1) if __ != 'M' else __ = __
-				tab[y][x-1] = str(int(tab[y][x-1])+1) if __ != 'M' else __ = __
-				tab[y][x+1] = str(int(tab[y][x+1])+1) if __ != 'M' else __ = __
-				tab[y+1][x-1] = str(int(tab[y+1][x-1])+1) if __ != 'M' else __ = __
-				tab[y+1][x] = str(int(tab[y+1][x])+1) if __ != 'M' else __ = __
-				tab[y+1][x+1] = str(int(tab[y+1][x+1])+1) if __ != 'M' else __ = __
-			except:
-				continue
+			tab[y-1][x-1] = verif(tab[y-1][x-1])
+			tab[y-1][x] = verif(tab[y-1][x])
+			tab[y-1][x+1] = verif(tab[y-1][x+1])
+			tab[y][x-1] = verif(tab[y][x-1])
+			tab[y][x+1] = verif(tab[y][x+1])
+			tab[y+1][x-1] = verif(tab[y+1][x-1])
+			tab[y+1][x] = verif(tab[y+1][x])
+			tab[y+1][x+1] = verif(tab[y+1][x+1])
 
 
 
